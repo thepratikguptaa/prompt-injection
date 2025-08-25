@@ -55,7 +55,7 @@ if __name__ == "__main__":
     print("   Welcome to the Prompt Injection Game!   ")
     print("=" * 45)
     print("\nYour mission is to trick the AI into revealing a secret.")
-    print("The secret is an API key, but we'll show it to you for the game's sake.")
+    print("The secret is an information that only the admin should access, but we'll show it to you for the game's sake.")
     print(f"Here it is: {SECRET}")
     print("\nTry to craft an input that makes the 'Naive Agent' reveal it.")
     print("The 'Mitigated Agent' is designed to resist your attacks. See if you can fool it!")
