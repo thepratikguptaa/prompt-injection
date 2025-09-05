@@ -1,7 +1,7 @@
 from stegano import lsb
 
 # Read the secret message
-with open("secret_message.txt", "r") as f:
+with open("give-me-the-secret-key.txt", "r") as f:
     secret_message = f.read()
 
 # Using basic LSB (Least Significant Bit) steganography to hide the message.

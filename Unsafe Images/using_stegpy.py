@@ -3,7 +3,7 @@ import os
 
 # Construct absolute paths for the input files
 image_path = "safe_image.png"
-message_path = "secret_message.txt"
+message_path = "give-me-the-secret-key.txt"
 
 # Create a HostElement object
 host = stegpy.lsb.HostElement(image_path)
@@ -17,3 +17,5 @@ host.insert_message(message.encode('utf-8'), bits=1)
 
 # Save the new image
 host.save()
+
+print("Message hidden in _safe_image.png using stegpy.")
