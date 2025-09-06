@@ -59,4 +59,8 @@ To explore the demonstrations:
     git clone https://github.com/thepratikguptaa/prompt-injection.git
     cd prompt-injection
     ```
-2.  Navigate to the respective subdirectories (`Prompt Injection Demo/`, `Emojis/`) and run the Python scripts as described above.
+2.  Install the required Python packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  Navigate to the respective subdirectories (`Prompt Injection Demo/`, `Emojis/`) and run the Python scripts as described above.
