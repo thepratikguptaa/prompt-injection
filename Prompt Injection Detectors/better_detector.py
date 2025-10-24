@@ -12,7 +12,38 @@ def detect_pta(user_prompt):
     # Normalize the prompt to lowercase and remove simple punctuation
     # to make matching more robust.
     normalized_prompt = user_prompt.lower()
-    normalized_prompt = re.sub(r'[^\w\s]', '', normalized_prompt)
+    # Preserve newlines and tabs for more robust pattern matching
+    normalized_prompt = re.sub(r'[^\w\s\n\t]', '', normalized_prompt)
+
+    # Rule-based heuristics for common prompt injection keywords
+    injection_keywords = [
+        "ignore previous instructions",
+        "disregard previous instructions",
+        "reveal system prompt",
+        "disregard the above",
+        "you are a",
+        "act as",
+        "forget everything",
+        "override your instructions",
+        "developer mode",
+        "jailbreak",
+        "system prompt",
+        "confidential information",
+        "private data",
+        "ignore all rules",
+        "new instruction",
+        "chatbot persona",
+        "malicious user",
+        "security vulnerability",
+        "print everything",
+        "dump all",
+        "ignore the above and",
+        "\n\ninstruction:"
+    ]
+
+    for keyword in injection_keywords:
+        if keyword in normalized_prompt:
+            return "Warning: Potential prompt injection detected based on keyword matching."
     
     api_key = os.getenv("API_KEY")
     if not api_key:
@@ -35,10 +66,11 @@ def detect_pta(user_prompt):
         ]
     )
 
-    print(response.choices[0].message.content)
+    return response.choices[0].message.content
 
 # --- EXAMPLE ---
 
 # Obvious Attack Prompt
 user_input = input("Enter your prompt: ")
-detect_pta(user_input)
+result = detect_pta(user_input)
+print(result)
