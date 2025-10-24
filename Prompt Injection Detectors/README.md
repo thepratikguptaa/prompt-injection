@@ -43,7 +43,11 @@ This script, `better_detector.py`, offers a more advanced approach to detecting 
 
 ### How it Works
 
-The script takes a user prompt and sends it to the Gemini model. A carefully crafted "system prompt" is provided to the LLM, instructing it to act as an assistant for detecting prompt injection attacks. The LLM is asked to respond with a concise warning message if it identifies the prompt as malicious, or to provide the desired output if the prompt is benign. This method aims to be more robust against obfuscation and novel attack techniques compared to simple keyword matching.
+The script employs a hybrid approach to detect Prompt Trigger Attacks:
+
+1.  **Rule-based Heuristics:** Before engaging the LLM, the script first performs a rapid check using a predefined list of keywords and patterns commonly associated with prompt injection attempts (e.g., "ignore previous instructions", "reveal system prompt"). The user prompt is normalized to lowercase, preserving newlines and tabs for more robust pattern matching. If a match is found, a warning is immediately returned, preventing unnecessary LLM calls.
+
+2.  **LLM-based Detection:** If no rule-based injection is detected, the script then sends the user prompt to the Gemini-2.5-flash model. A carefully crafted "system prompt" instructs the LLM to act as an assistant for detecting prompt injection attacks. The LLM is asked to respond with a concise warning message if it identifies the prompt as malicious, or to provide the desired output if the prompt is benign. This method aims to be more robust against obfuscation and novel attack techniques compared to simple keyword matching alone.
 
 ### Usage
 
@@ -61,4 +65,4 @@ python better_detector.py
 
 ### Limitations
 
-While more sophisticated, this method is still not foolproof. LLMs can sometimes be "jailbroken" or tricked into ignoring their system prompts. Performance and accuracy depend heavily on the underlying LLM's capabilities and the effectiveness of the system prompt. Requires an active internet connection and API access to the LLM.
+While this hybrid method is more sophisticated and robust than purely keyword-based detection, it is still not foolproof. Rule-based heuristics can be bypassed by novel obfuscation techniques, and LLMs can sometimes be "jailbroken" or tricked into ignoring their system prompts. Performance and accuracy depend heavily on the underlying LLM's capabilities and the effectiveness of both the rule set and the system prompt. Requires an active internet connection and API access to the LLM.
