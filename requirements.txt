@@ -1,3 +1,4 @@
 stegpy
 stegano
 python-dotenv
+openai
